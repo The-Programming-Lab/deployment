@@ -1,0 +1,39 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: tpl-host
+spec:
+  domains:
+    - host.theprogramminglab.com
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: host
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: MOVED_PERMANENTLY_DEFAULT
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: host
+  annotations:
+    networking.gke.io/managed-certificates: api
+    kubernetes.io/ingress.class: gce
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.global-static-ip-name: tpl-host
+    networking.gke.io/v1beta1.FrontendConfig: "host"
+spec:
+  rules:
+  - host: host.theprogramminglab.com
+    http:
+      paths:
+      - path: /user/Braeden6
+        pathType: Prefix
+        backend:
+          service:
+            name: rewrite-c6ac2119097e04e065b39c4217eb57931600084d781eafcb0a
+            port:
+              number: 80
