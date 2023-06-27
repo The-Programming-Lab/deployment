@@ -1,7 +1,7 @@
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: tpl-host
+  name: host
 spec:
   domains:
     - host.theprogramminglab.com
@@ -20,7 +20,7 @@ kind: Ingress
 metadata:
   name: host
   annotations:
-    networking.gke.io/managed-certificates: api
+    networking.gke.io/managed-certificates: host
     kubernetes.io/ingress.class: gce
     kubernetes.io/ingress.allow-http: "true"
     kubernetes.io/ingress.global-static-ip-name: tpl-host

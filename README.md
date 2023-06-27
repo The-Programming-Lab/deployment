@@ -22,3 +22,12 @@ The API ingress is responsible for all our microservices. The associated domain 
 Like the other ingresses, it includes a ManagedCertificate for HTTPS, a FrontendConfig for HTTP to HTTPS redirection, and Ingress rules to route the traffic to the respective microservices.
 
 All of the ingress configurations enable both HTTP and HTTPS traffic, but with a preference for HTTPS via redirection from HTTP. The `MOVED_PERMANENTLY_DEFAULT` response code indicates that all HTTP traffic should be permanently redirected to HTTPS.
+
+
+### Set up 
+Add the following DNS records to your domain:
+```
+gcloud compute addresses create tpl-client --global
+gcloud compute addresses create tpl-api --global
+gcloud compute addresses create tpl-host --global
+```
